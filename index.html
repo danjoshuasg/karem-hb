@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Cumpleaños Mi Amor</title>
+  <style>
+    /* Base setup and fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap');
+    :root {
+      --font-family-default: 'Montserrat', sans-serif;
+      --font-family-heading: 'Playfair Display', serif;
+      --color-background: #000;
+      --color-text: #fff0f4;
+      --color-primary: #FA8072;
+      --color-yellow: #ffd700;
+      --color-secondary: #87ceeb;
+      --color-red: #ff4040;
+      --color-purple: #d8bfd8;
+      --spacing: 1rem;
+    }
+    html {
+      scroll-snap-type: y mandatory;
+      timeline-scope: --section;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--color-background);
+      color: var(--color-text);
+      font-family: var(--font-family-default);
+      overflow-x: hidden;
+    }
+    /* Typography scaling */
+    h2 {
+      font-family: var(--font-family-heading);
+      font-weight: 300;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.2;
+      margin: 0 0 1.5rem;
+      text-shadow: 0 0 10px rgba(255,255,255,0.3);
+    }
+    h2 strong {
+      font-weight: 700;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    h2 em {
+      font-style: italic;
+      font-weight: 400;
+      opacity: 0.9;
+    }
+    .text p {
+      font-family: var(--font-family-default);
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      line-height: 1.6;
+      font-weight: 300;
+      margin: 0;
+      text-align: left;
+    }
+    .text p strong {
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    /* Section and animation setup */
+    .section {
+      scroll-snap-align: start;
+      view-timeline: --section;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .content {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background-color: var(--color-background);
+      animation: zoom-scroll ease-out both;
+      animation-timeline: --section;
+      animation-range: entry-crossing 0% exit-crossing 100%;
+      opacity: 0;
+      visibility: hidden;
+    }
+    /* Beautiful animation with subtle blur and zoom */
+    @keyframes zoom-scroll {
+      0% {
+        opacity: 0;
+        visibility: hidden;
+        transform: scale(0.8) translateY(30px);
+        filter: blur(8px);
+      }
+      15% {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+      }
+      85% {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+      }
+      100% {
+        opacity: 0;
+        visibility: hidden;
+        transform: scale(1.2) translateY(-30px);
+        filter: blur(8px);
+      }
+    }
+    /* Section colors */
+    .section:nth-child(1) .content strong { color: var(--color-primary); }
+    .section:nth-child(2) .content strong { color: var(--color-yellow); }
+    .section:nth-child(3) .content strong { color: var(--color-secondary); }
+    .section:nth-child(4) .content strong { color: var(--color-red); }
+    .section:nth-child(5) .content strong { color: var(--color-purple); }
+    
+    /* Image styling */
+    .background-image {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.2;
+    }
+    .background-image img {
+      max-width: 50%;
+      max-height: 50%;
+      filter: drop-shadow(0 0 20px rgba(255,255,255,0.5));
+      animation: float 5s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    
+    /* New horizontal layout */
+    .content-wrapper {
+      display: flex;
+      flex-direction: row;
+      width: 90%;
+      max-width: 1200px;
+      gap: 4rem;
+      z-index: 1;
+    }
+    .title-section {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    .text-section {
+      flex: 1.5;
+    }
+    
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+    
+    /* Responsive layout */
+    @media (max-width: 768px) {
+      .content-wrapper {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+      .title-section, .text-section {
+        flex: none;
+        width: 100%;
+      }
+      .title-section {
+        justify-content: center;
+      }
+      h2 {
+        text-align: center;
+      }
+      .text p {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section id="snapping" class="section">
+      <div class="content">
+        <div class="background-image">
+          <img src="https://assets.codepen.io/197359/flower-white.png" alt="Flor blanca">
+        </div>
+        <div class="content-wrapper">
+          <div class="title-section">
+            <h2><strong>Feliz cumpleaños</strong> <em> Karem ❤️</em></h2>
+          </div>
+          <div class="text-section">
+            <div class="text">
+              <p><strong>Fuerte</strong>. Mi vida eres mi roca, una mujer que no se doblega ni al cansancio ni a las dificultades, siempre resiliente ante cualquier tormenta. Tu fuerza me inspira cada día, y no sabes cuánto te admiro por esa capacidad de levantarte con más ganas, mi valiente y hermosa guerrera.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="scrolling" class="section">
+      <div class="content">
+        <div class="background-image">
+          <img src="https://assets.codepen.io/197359/flower-yellow.png" alt="Flor amarilla">
+        </div>
+        <div class="content-wrapper">
+          <div class="title-section">
+            <h2><strong>Eres un regalo</strong> <em>mi bella alegría</em></h2>
+          </div>
+          <div class="text-section">
+            <div class="text">
+              <p><strong>Bella</strong>, mi vida, desbordas hermosura con esa elegancia fresa que me tiene completamente loco por ti. Tu sonrisa ilumina mi mundo como el sol en un día perfecto, y cada detalle tuyo —tu forma de caminar, de reír, de mirarme— me hace sentir que estoy frente a la mujer más preciosa del universo. Eres mi musa, mi alegría eterna, y no imagino un día sin verte brillar así.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="layout" class="section">
+      <div class="content">
+        <div class="background-image">
+          <img src="https://assets.codepen.io/197359/flower-blue.png" alt="Flor azul">
+        </div>
+        <div class="content-wrapper">
+          <div class="title-section">
+            <h2><strong>Te admiro</strong> <em>mi inteligente tesoro</em></h2>
+          </div>
+          <div class="text-section">
+            <div class="text">
+              <p><strong>Inteligente</strong>, mi tesoro, tu mente brillante me deja sin palabras cada vez que te veo resolver la vida con tanta sabiduría. Cuidas a tu familia con un amor inmenso, siempre encontrando la manera de protegerlos y hacerlos felices, y eso me llena de admiración. Eres mi guía, mi faro en los días oscuros, y te quiero con una intensidad que no cabe en mi pecho porque eres todo lo que siempre soñé.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="transition" class="section">
+      <div class="content">
+        <div class="background-image">
+          <img src="https://assets.codepen.io/197359/flower-red.png" alt="Flor roja">
+        </div>
+        <div class="content-wrapper">
+          <div class="title-section">
+            <h2><strong>Me enamoras</strong> <em>mi coqueta chispa</em></h2>
+          </div>
+          <div class="text-section">
+            <div class="text">
+              <p><strong>Coqueta</strong>, mi dulce princesa, ese encanto juguetón tuyo me derrite el alma cada vez que me miras con esos ojos traviesos. Tus detalles fresas, esa forma tan única de moverte y de hacerme reír, me tienen atrapado en un hechizo del que no quiero salir nunca. Haces que mi corazón lata más fuerte con cada gesto, y no hay nada que ame más que esa chispa tuya que llena mis días de felicidad y ternura infinita.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="caveats" class="section">
+      <div class="content">
+        <div class="background-image">
+          <img src="https://assets.codepen.io/197359/flower-purple.png" alt="Flor púrpura">
+        </div>
+        <div class="content-wrapper">
+          <div class="title-section">
+            <h2><strong>Eres luz</strong> <em>mi dulce compañera</em></h2>
+          </div>
+          <div class="text-section">
+            <div class="text">
+              <p><strong>Amorosa</strong>, mi todo, tu cariño hacia tus amigos, que son tu tesoro, y hacia tu familia es tan grande que me hace sentir pequeño frente a tu corazón inmenso. Me haces sentir tan especial al permitirme entrar en tu espacio, y eso me demuestra cuán valioso soy para ti. Eres mi sueño hecho realidad, mi refugio, mi paz, y te amo con toda mi alma porque no hay nadie en este mundo que me complete como tú.</p>
+            </div>
+            <div class="love-message" style="text-align: center; margin-top: 20px;">
+                <p><strong>Con todo mi amor, Dan S.</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="special-gift" class="section">
+        <div class="content">
+          <div class="content-wrapper">
+            <div class="title-section">
+              <h2><strong>¡Sorpresa extra!</strong></h2>
+            </div>
+            <div class="text-section">
+              <div class="text">
+                <p>¿Pensaste que solo eso era la sorpresa? Te tengo algo más, ahora un primer ladrillo pero luego una pequeña fuente de tu independencia: <a href="https://karem-app.vercel.app/" style="color: var(--color-primary); text-decoration: underline;">https://karem-app.vercel.app/</a> 🎁</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+  </main>
+</body>
+</html>
