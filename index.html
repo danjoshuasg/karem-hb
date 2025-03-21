@@ -314,6 +314,7 @@ a:hover {
 /* Estilos específicos para dispositivos iOS */
 .ios-device .section {
   height: 100%; /* Simplifica para iOS */
+  min-height: 100vh; /* Asegura que siempre ocupe la altura completa */
 }
 
 .ios-device .content {
@@ -529,8 +530,8 @@ a:hover {
         });
       }
       
-      // Inicializa la primera sección como activa
-      sections[0].classList.add('active');
+      // Importante: inicializa explícitamente la primera sección como activa
+      showSection(0);
       
       // Eventos de deslizar para navegación
       document.addEventListener('touchstart', function(e) {
