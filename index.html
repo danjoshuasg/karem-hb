@@ -5,271 +5,315 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Feliz Cumpleaños Mi Amor</title>
   <style>
-    /* Base setup and fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap');
-    :root {
-      --font-family-default: 'Montserrat', sans-serif;
-      --font-family-heading: 'Playfair Display', serif;
-      --color-background: #000;
-      --color-text: #fff0f4;
-      --color-primary: #FA8072;
-      --color-yellow: #ffd700;
-      --color-secondary: #87ceeb;
-      --color-red: #ff4040;
-      --color-purple: #d8bfd8;
-      --spacing: 1rem;
+  /* [Tu CSS original aquí, sin cambios hasta el final] */
+
+  /* Base setup and fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap');
+  :root {
+    --font-family-default: 'Montserrat', sans-serif;
+    --font-family-heading: 'Playfair Display', serif;
+    --color-background: #000;
+    --color-text: #fff0f4;
+    --color-primary: #FA8072;
+    --color-yellow: #ffd700;
+    --color-secondary: #87ceeb;
+    --color-red: #ff4040;
+    --color-purple: #d8bfd8;
+    --spacing: 1rem;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  html {
+    scroll-snap-type: y mandatory;
+    timeline-scope: --section;
+    height: 100%;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-family-default);
+    overflow-x: hidden;
+    min-height: 100%;
+  }
+  
+  /* Typography scaling */
+  h2 {
+    font-family: var(--font-family-heading);
+    font-weight: 300;
+    font-size: clamp(1.8rem, 5vw, 3.5rem);
+    line-height: 1.2;
+    margin: 0 0 1.5rem;
+    text-shadow: 0 0 10px rgba(255,255,255,0.3);
+  }
+  
+  h2 strong {
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  h2 em {
+    font-style: italic;
+    font-weight: 400;
+    opacity: 0.9;
+  }
+  
+  .text p {
+    font-family: var(--font-family-default);
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    line-height: 1.6;
+    font-weight: 300;
+    margin: 0;
+  }
+  
+  .text p strong {
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+  
+  /* Section and animation setup */
+  .section {
+    scroll-snap-align: start;
+    view-timeline: --section;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .content {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background-color: var(--color-background);
+    animation: zoom-scroll ease-out both;
+    animation-timeline: --section;
+    animation-range: entry-crossing 0% exit-crossing 100%;
+    opacity: 0;
+    visibility: hidden;
+  }
+  
+  /* Beautiful animation with subtle blur and zoom */
+  @keyframes zoom-scroll {
+    0% {
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.8) translateY(30px);
+      filter: blur(8px);
+    }
+    15% {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      filter: blur(0);
+    }
+    85% {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      filter: blur(0);
+    }
+    100% {
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(1.2) translateY(-30px);
+      filter: blur(8px);
+    }
+  }
+  
+  /* Section colors */
+  .section:nth-child(1) .content strong { color: var(--color-primary); }
+  .section:nth-child(2) .content strong { color: var(--color-yellow); }
+  .section:nth-child(3) .content strong { color: var(--color-secondary); }
+  .section:nth-child(4) .content strong { color: var(--color-red); }
+  .section:nth-child(5) .content strong { color: var(--color-purple); }
+  .section:nth-child(6) .content strong { color: var(--color-primary); }
+  
+  /* Image styling */
+  .background-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.2;
+  }
+  
+  .background-image img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(255,255,255,0.5));
+    animation: float 5s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+  
+  /* Content layout */
+  .content-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    max-width: 1200px;
+    gap: 2rem;
+    z-index: 1;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .title-section, .text-section {
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  /* Heartbeat animation */
+  .heart-emoji {
+    display: inline-block;
+    animation: heartbeat 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+  
+  /* Love message styling */
+  .love-message {
+    margin-top: 2rem;
+    text-align: center;
+  }
+  
+  .love-message p {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+  }
+  
+  /* Link styling */
+  a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    color: var(--color-yellow);
+    text-decoration: none;
+  }
+  
+  /* Define flower colors for each section */
+  #flower-white { fill: var(--color-primary); }
+  #flower-yellow { fill: var(--color-yellow); }
+  #flower-blue { fill: var(--color-secondary); }
+  #flower-red { fill: var(--color-red); }
+  #flower-purple { fill: var(--color-purple); }
+  #flower-special { fill: var(--color-primary); }
+  
+  /* Desktop layout */
+  @media (min-width: 769px) {
+    .content-wrapper {
+      flex-direction: row;
+      text-align: left;
+      align-items: flex-start;
     }
     
-    * {
-      box-sizing: border-box;
+    .title-section {
+      flex: 1;
+      text-align: right;
+      padding-right: 2rem;
     }
     
-    html {
-      scroll-snap-type: y mandatory;
-      timeline-scope: --section;
-      height: 100%;
+    .text-section {
+      flex: 1.5;
+      text-align: left;
     }
     
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: var(--color-background);
-      color: var(--color-text);
-      font-family: var(--font-family-default);
-      overflow-x: hidden;
-      min-height: 100%;
+    .love-message {
+      text-align: right;
     }
-    
-    /* Typography scaling */
-    h2 {
-      font-family: var(--font-family-heading);
-      font-weight: 300;
-      font-size: clamp(1.8rem, 5vw, 3.5rem);
-      line-height: 1.2;
-      margin: 0 0 1.5rem;
-      text-shadow: 0 0 10px rgba(255,255,255,0.3);
-    }
-    
-    h2 strong {
-      font-weight: 700;
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-    
-    h2 em {
-      font-style: italic;
-      font-weight: 400;
-      opacity: 0.9;
-    }
-    
-    .text p {
-      font-family: var(--font-family-default);
-      font-size: clamp(1rem, 2.5vw, 1.4rem);
-      line-height: 1.6;
-      font-weight: 300;
-      margin: 0;
-    }
-    
-    .text p strong {
-      font-weight: 500;
-      letter-spacing: 0.5px;
-    }
-    
-    /* Section and animation setup */
+  }
+  
+  /* Small screens additional adjustments */
+  @media (max-width: 480px) {
     .section {
-      scroll-snap-align: start;
-      view-timeline: --section;
-      height: 100vh;
-      overflow: hidden;
-      position: relative;
+      height: 100svh; /* Use small viewport height for better mobile experience */
     }
     
     .content {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-      background-color: var(--color-background);
-      animation: zoom-scroll ease-out both;
-      animation-timeline: --section;
-      animation-range: entry-crossing 0% exit-crossing 100%;
-      opacity: 0;
-      visibility: hidden;
+      padding: 1.5rem;
     }
     
-    /* Beautiful animation with subtle blur and zoom */
-    @keyframes zoom-scroll {
-      0% {
-        opacity: 0;
-        visibility: hidden;
-        transform: scale(0.8) translateY(30px);
-        filter: blur(8px);
-      }
-      15% {
-        opacity: 1;
-        visibility: visible;
-        transform: scale(1) translateY(0);
-        filter: blur(0);
-      }
-      85% {
-        opacity: 1;
-        visibility: visible;
-        transform: scale(1) translateY(0);
-        filter: blur(0);
-      }
-      100% {
-        opacity: 0;
-        visibility: hidden;
-        transform: scale(1.2) translateY(-30px);
-        filter: blur(8px);
-      }
+    h2 {
+      font-size: clamp(1.5rem, 8vw, 2.5rem);
+      margin-bottom: 1rem;
     }
     
-    /* Section colors */
-    .section:nth-child(1) .content strong { color: var(--color-primary); }
-    .section:nth-child(2) .content strong { color: var(--color-yellow); }
-    .section:nth-child(3) .content strong { color: var(--color-secondary); }
-    .section:nth-child(4) .content strong { color: var(--color-red); }
-    .section:nth-child(5) .content strong { color: var(--color-purple); }
-    .section:nth-child(6) .content strong { color: var(--color-primary); }
-    
-    /* Image styling */
-    .background-image {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0.2;
+    .text p {
+      font-size: 1rem;
     }
     
-    .background-image img {
-      width: 100%;
-      max-width: 300px;
+    .background-image svg {
+      max-width: 200px;
+    }
+  }
+
+  /* Desactivar animaciones y scroll-snap en móviles */
+  @media (max-width: 768px) {
+    html {
+      scroll-snap-type: none;
+    }
+
+    .section {
       height: auto;
-      filter: drop-shadow(0 0 20px rgba(255,255,255,0.5));
-      animation: float 5s ease-in-out infinite;
+      min-height: 100vh;
+      overflow: visible;
+      position: relative;
     }
-    
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
+
+    .content {
+      position: relative;
+      height: auto;
+      opacity: 1;
+      visibility: visible;
+      animation: none;
+      transform: none;
+      filter: none;
+      padding: 1.5rem;
     }
-    
-    /* Content layout */
+
+    .background-image {
+      position: relative;
+      opacity: 0.2;
+      width: 100%;
+      text-align: center;
+    }
+
+    .background-image img {
+      max-width: 200px;
+    }
+
     .content-wrapper {
-      display: flex;
       flex-direction: column;
-      width: 90%;
-      max-width: 1200px;
-      gap: 2rem;
-      z-index: 1;
-      justify-content: center;
       align-items: center;
       text-align: center;
     }
-    
-    .title-section, .text-section {
-      width: 100%;
-      max-width: 800px;
-    }
-    
-    /* Heartbeat animation */
-    .heart-emoji {
-      display: inline-block;
-      animation: heartbeat 1.5s ease-in-out infinite;
-    }
-    
-    @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.15); }
-    }
-    
-    /* Love message styling */
-    .love-message {
-      margin-top: 2rem;
-      text-align: center;
-    }
-    
-    .love-message p {
-      font-size: clamp(1rem, 3vw, 1.2rem);
-    }
-    
-    /* Link styling */
-    a {
-      color: var(--color-primary);
-      text-decoration: underline;
-      transition: color 0.3s ease;
-    }
-    
-    a:hover {
-      color: var(--color-yellow);
-      text-decoration: none;
-    }
-    
-    /* Define flower colors for each section */
-    #flower-white { fill: var(--color-primary); }
-    #flower-yellow { fill: var(--color-yellow); }
-    #flower-blue { fill: var(--color-secondary); }
-    #flower-red { fill: var(--color-red); }
-    #flower-purple { fill: var(--color-purple); }
-    #flower-special { fill: var(--color-primary); }
-    
-    /* Desktop layout */
-    @media (min-width: 769px) {
-      .content-wrapper {
-        flex-direction: row;
-        text-align: left;
-        align-items: flex-start;
-      }
-      
-      .title-section {
-        flex: 1;
-        text-align: right;
-        padding-right: 2rem;
-      }
-      
-      .text-section {
-        flex: 1.5;
-        text-align: left;
-      }
-      
-      .love-message {
-        text-align: right;
-      }
-    }
-    
-    /* Small screens additional adjustments */
-    @media (max-width: 480px) {
-      .section {
-        height: 100svh; /* Use small viewport height for better mobile experience */
-      }
-      
-      .content {
-        padding: 1.5rem;
-      }
-      
-      h2 {
-        font-size: clamp(1.5rem, 8vw, 2.5rem);
-        margin-bottom: 1rem;
-      }
-      
-      .text p {
-        font-size: 1rem;
-      }
-      
-      .background-image svg {
-        max-width: 200px;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
   <main>
