@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <!-- Esta meta es fundamental para el responsive -->
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Feliz Cumpleaños Mi Amor</title>
   <style>
@@ -20,11 +19,17 @@
       --color-purple: #d8bfd8;
       --spacing: 1rem;
     }
-    html {
-      /* Scroll snap a nivel de documento */
-      scroll-snap-type: y mandatory;
-      timeline-scope: --section; /* propiedad experimental */
+    
+    * {
+      box-sizing: border-box;
     }
+    
+    html {
+      scroll-snap-type: y mandatory;
+      timeline-scope: --section;
+      height: 100%;
+    }
+    
     body {
       margin: 0;
       padding: 0;
@@ -32,71 +37,72 @@
       color: var(--color-text);
       font-family: var(--font-family-default);
       overflow-x: hidden;
+      min-height: 100%;
     }
+    
     /* Typography scaling */
     h2 {
       font-family: var(--font-family-heading);
       font-weight: 300;
-      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-size: clamp(1.8rem, 5vw, 3.5rem);
       line-height: 1.2;
       margin: 0 0 1.5rem;
       text-shadow: 0 0 10px rgba(255,255,255,0.3);
     }
+    
     h2 strong {
       font-weight: 700;
       display: block;
       margin-bottom: 0.5rem;
     }
+    
     h2 em {
       font-style: italic;
       font-weight: 400;
       opacity: 0.9;
     }
+    
     .text p {
+      font-family: var(--font-family-default);
       font-size: clamp(1rem, 2.5vw, 1.4rem);
       line-height: 1.6;
       font-weight: 300;
       margin: 0;
-      text-align: left;
     }
+    
     .text p strong {
       font-weight: 500;
       letter-spacing: 0.5px;
     }
-
-    /* Cada "pantalla" o sección */
+    
+    /* Section and animation setup */
     .section {
       scroll-snap-align: start;
-      view-timeline: --section; /* propiedad experimental */
+      view-timeline: --section;
       height: 100vh;
       overflow: hidden;
+      position: relative;
     }
-
-    /* Contenedor principal dentro de cada sección */
+    
     .content {
-      position: fixed;  /* Fijo para la animación + scroll scrollytelling */
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       display: flex;
-      flex-direction: row;
       align-items: center;
       justify-content: center;
       padding: 2rem;
       background-color: var(--color-background);
-
-      /* Animación con timeline */
       animation: zoom-scroll ease-out both;
       animation-timeline: --section;
       animation-range: entry-crossing 0% exit-crossing 100%;
-
-      /* Oculto al inicio */
       opacity: 0;
       visibility: hidden;
     }
-
-    /* Animación de cada bloque al “entrar y salir” */
+    
+    /* Beautiful animation with subtle blur and zoom */
     @keyframes zoom-scroll {
       0% {
         opacity: 0;
@@ -123,15 +129,16 @@
         filter: blur(8px);
       }
     }
-
-    /* Sección y color de la flor (solo cambian el color del <strong>) */
+    
+    /* Section colors */
     .section:nth-child(1) .content strong { color: var(--color-primary); }
     .section:nth-child(2) .content strong { color: var(--color-yellow); }
     .section:nth-child(3) .content strong { color: var(--color-secondary); }
     .section:nth-child(4) .content strong { color: var(--color-red); }
     .section:nth-child(5) .content strong { color: var(--color-purple); }
-
-    /* Imagen de fondo */
+    .section:nth-child(6) .content strong { color: var(--color-primary); }
+    
+    /* Image styling */
     .background-image {
       position: absolute;
       width: 100%;
@@ -142,88 +149,138 @@
       justify-content: center;
       opacity: 0.2;
     }
+    
     .background-image img {
-      max-width: 50%;
-      max-height: 50%;
+      width: 100%;
+      max-width: 300px;
+      height: auto;
       filter: drop-shadow(0 0 20px rgba(255,255,255,0.5));
       animation: float 5s ease-in-out infinite;
     }
+    
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-15px); }
     }
-
-    /* Distribución interna */
+    
+    /* Content layout */
     .content-wrapper {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       width: 90%;
       max-width: 1200px;
-      gap: 4rem;
+      gap: 2rem;
       z-index: 1;
-    }
-    .title-section {
-      flex: 1;
-      display: flex;
-      justify-content: flex-end;
+      justify-content: center;
       align-items: center;
+      text-align: center;
     }
-    .text-section {
-      flex: 1.5;
+    
+    .title-section, .text-section {
+      width: 100%;
+      max-width: 800px;
     }
-
-    /* Ajustes responsivos */
-    @media (max-width: 768px) {
-      /* Permitimos que cada sección se comporte “normal” para que se vea bien */
-      .section {
-        height: auto;            /* que el alto se adapte al contenido */
-        min-height: 100vh;       /* pero mínimo llene la pantalla */
-        scroll-snap-align: start;
-      }
-      /* Quitamos el position fixed para que no se “pise” la información al hacer scroll */
-      .content {
-        position: static;
-        animation: none;         /* podemos quitar la animación para simplificar */
-        opacity: 1;
-        visibility: visible;
-        padding: 1rem;
-      }
+    
+    /* Heartbeat animation */
+    .heart-emoji {
+      display: inline-block;
+      animation: heartbeat 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+    
+    /* Love message styling */
+    .love-message {
+      margin-top: 2rem;
+      text-align: center;
+    }
+    
+    .love-message p {
+      font-size: clamp(1rem, 3vw, 1.2rem);
+    }
+    
+    /* Link styling */
+    a {
+      color: var(--color-primary);
+      text-decoration: underline;
+      transition: color 0.3s ease;
+    }
+    
+    a:hover {
+      color: var(--color-yellow);
+      text-decoration: none;
+    }
+    
+    /* Define flower colors for each section */
+    #flower-white { fill: var(--color-primary); }
+    #flower-yellow { fill: var(--color-yellow); }
+    #flower-blue { fill: var(--color-secondary); }
+    #flower-red { fill: var(--color-red); }
+    #flower-purple { fill: var(--color-purple); }
+    #flower-special { fill: var(--color-primary); }
+    
+    /* Desktop layout */
+    @media (min-width: 769px) {
       .content-wrapper {
-        flex-direction: column;
-        gap: 1.5rem;
-        width: 100%;
-        max-width: 600px; /* Ajusta a gusto */
-        margin: 0 auto;   /* Centrar en móviles */
+        flex-direction: row;
+        text-align: left;
+        align-items: flex-start;
       }
-      .title-section, .text-section {
-        flex: none;
-        width: 100%;
-        justify-content: center;
+      
+      .title-section {
+        flex: 1;
+        text-align: right;
+        padding-right: 2rem;
       }
+      
+      .text-section {
+        flex: 1.5;
+        text-align: left;
+      }
+      
+      .love-message {
+        text-align: right;
+      }
+    }
+    
+    /* Small screens additional adjustments */
+    @media (max-width: 480px) {
+      .section {
+        height: 100svh; /* Use small viewport height for better mobile experience */
+      }
+      
+      .content {
+        padding: 1.5rem;
+      }
+      
       h2 {
-        text-align: center;
+        font-size: clamp(1.5rem, 8vw, 2.5rem);
+        margin-bottom: 1rem;
       }
+      
       .text p {
-        text-align: center;
+        font-size: 1rem;
       }
-      .background-image img {
-        max-width: 80%;
-        max-height: 80%;
+      
+      .background-image svg {
+        max-width: 200px;
       }
     }
   </style>
 </head>
 <body>
   <main>
-    <!-- SECCIÓN 1 -->
     <section id="snapping" class="section">
       <div class="content">
         <div class="background-image">
-          <img src="https://assets.codepen.io/197359/flower-white.png" alt="Flor blanca">
+            <img src="https://assets.codepen.io/197359/flower-white.png" alt="Flor blanca">
         </div>
         <div class="content-wrapper">
           <div class="title-section">
-            <h2><strong>Feliz cumpleaños</strong> <em> Karem ❤️</em></h2>
+            <h2><strong>Feliz cumpleaños</strong> <em>Karem <span class="heart-emoji">❤️</span></em></h2>
           </div>
           <div class="text-section">
             <div class="text">
@@ -234,11 +291,10 @@
       </div>
     </section>
     
-    <!-- SECCIÓN 2 -->
     <section id="scrolling" class="section">
       <div class="content">
         <div class="background-image">
-          <img src="https://assets.codepen.io/197359/flower-yellow.png" alt="Flor amarilla">
+            <img src="https://assets.codepen.io/197359/flower-yellow.png" alt="Flor amarilla">
         </div>
         <div class="content-wrapper">
           <div class="title-section">
@@ -253,11 +309,10 @@
       </div>
     </section>
     
-    <!-- SECCIÓN 3 -->
     <section id="layout" class="section">
       <div class="content">
         <div class="background-image">
-          <img src="https://assets.codepen.io/197359/flower-blue.png" alt="Flor azul">
+            <img src="https://assets.codepen.io/197359/flower-blue.png" alt="Flor azul">
         </div>
         <div class="content-wrapper">
           <div class="title-section">
@@ -272,11 +327,10 @@
       </div>
     </section>
     
-    <!-- SECCIÓN 4 -->
     <section id="transition" class="section">
       <div class="content">
         <div class="background-image">
-          <img src="https://assets.codepen.io/197359/flower-red.png" alt="Flor roja">
+            <img src="https://assets.codepen.io/197359/flower-red.png" alt="Flor roja">
         </div>
         <div class="content-wrapper">
           <div class="title-section">
@@ -291,29 +345,30 @@
       </div>
     </section>
     
-    <!-- SECCIÓN 5 -->
     <section id="caveats" class="section">
       <div class="content">
         <div class="background-image">
-          <img src="https://assets.codepen.io/197359/flower-purple.png" alt="Flor púrpura">
+            <img src="https://assets.codepen.io/197359/flower-purple.png" alt="Flor púrpura">
         </div>
         <div class="content-wrapper">
           <div class="title-section">
-            <h2><strong>Eres luz</strong> <em>mi dulce compañera</em></h2>
+            <h2><strong>Eres luz</strong> <em>mi reina</em></h2>
           </div>
           <div class="text-section">
             <div class="text">
-              <p><strong>Amorosa</strong>, mi todo, tu cariño hacia tus amigos, que son tu tesoro, y hacia tu familia es tan grande que me hace sentir pequeño frente a tu corazón inmenso. Me haces sentir tan especial al permitirme entrar en tu espacio, y eso me demuestra cuán valioso soy para ti. Eres mi sueño hecho realidad, mi refugio, mi paz, y te amo con toda mi alma porque no hay nadie en este mundo que me complete como tú.</p>
-            </div>
-            <div class="love-message" style="text-align: center; margin-top: 20px;">
-              <p><strong>Con todo mi amor, Dan S.</strong></p>
+                <p><strong>Amorosa</strong>, mi todo, tu cariño hacia tus amigos y familia es tan grande que me hace sentir pequeño frente a tu corazón inmenso. Me haces sentir especial al permitirme entrar en tu espacio, demostrándome cuán valioso soy para ti. Eres mi sueño, mi refugio, mi paz, y te amo con toda mi alma porque nadie me completa como tú.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- SECCIÓN 6 (Sorpresa extra) -->
+    <section id="dan-section" class="section">
+        <div class="content">
+            <div class="love-message">
+                <p><strong>Con todo mi amor, Dan Santivañez</strong></p>
+            </div>
+        </div>
+    </section>
     <section id="special-gift" class="section">
       <div class="content">
         <div class="content-wrapper">
@@ -322,10 +377,7 @@
           </div>
           <div class="text-section">
             <div class="text">
-              <p>
-                ¿Pensaste que solo eso era la sorpresa? Te tengo algo más, ahora un primer ladrillo pero luego una pequeña fuente de tu independencia:
-                <a href="https://karem-app.vercel.app/" style="color: var(--color-primary); text-decoration: underline;">https://karem-app.vercel.app/</a> 🎁
-              </p>
+              <p>¿Pensaste que solo eso era la sorpresa? Te tengo algo más, ahora es un primer ladrillo pero estoy seguro que será una pequeña fuente de tu independencia: <a href="https://karem-app.vercel.app/">https://karem-app.vercel.app/</a> 🎁</p>
             </div>
           </div>
         </div>
