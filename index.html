@@ -5,315 +5,358 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Feliz Cumpleaños Mi Amor</title>
   <style>
-  /* [Tu CSS original aquí, sin cambios hasta el final] */
+    /* Base setup and fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap');
+    :root {
+      --font-family-default: 'Montserrat', sans-serif;
+      --font-family-heading: 'Playfair Display', serif;
+      --color-background: #000;
+      --color-text: #fff0f4;
+      --color-primary: #FA8072;
+      --color-yellow: #ffd700;
+      --color-secondary: #87ceeb;
+      --color-red: #ff4040;
+      --color-purple: #d8bfd8;
+      --spacing: 1rem;
+    }
+    
+* {
+  box-sizing: border-box;
+}
 
-  /* Base setup and fonts */
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap');
-  :root {
-    --font-family-default: 'Montserrat', sans-serif;
-    --font-family-heading: 'Playfair Display', serif;
-    --color-background: #000;
-    --color-text: #fff0f4;
-    --color-primary: #FA8072;
-    --color-yellow: #ffd700;
-    --color-secondary: #87ceeb;
-    --color-red: #ff4040;
-    --color-purple: #d8bfd8;
-    --spacing: 1rem;
-  }
-  
-  * {
-    box-sizing: border-box;
-  }
-  
+html {
+  scroll-snap-type: y mandatory;
+  /* Mantener timeline-scope solo para navegadores compatibles */
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+@supports (timeline-scope: --section) {
   html {
-    scroll-snap-type: y mandatory;
     timeline-scope: --section;
-    height: 100%;
   }
-  
-  body {
-    margin: 0;
-    padding: 0;
-    background-color: var(--color-background);
-    color: var(--color-text);
-    font-family: var(--font-family-default);
-    overflow-x: hidden;
-    min-height: 100%;
-  }
-  
-  /* Typography scaling */
-  h2 {
-    font-family: var(--font-family-heading);
-    font-weight: 300;
-    font-size: clamp(1.8rem, 5vw, 3.5rem);
-    line-height: 1.2;
-    margin: 0 0 1.5rem;
-    text-shadow: 0 0 10px rgba(255,255,255,0.3);
-  }
-  
-  h2 strong {
-    font-weight: 700;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  
-  h2 em {
-    font-style: italic;
-    font-weight: 400;
-    opacity: 0.9;
-  }
-  
-  .text p {
-    font-family: var(--font-family-default);
-    font-size: clamp(1rem, 2.5vw, 1.4rem);
-    line-height: 1.6;
-    font-weight: 300;
-    margin: 0;
-  }
-  
-  .text p strong {
-    font-weight: 500;
-    letter-spacing: 0.5px;
-  }
-  
-  /* Section and animation setup */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-family-default);
+  overflow-x: hidden;
+  min-height: 100%;
+}
+
+/* Typography scaling */
+h2 {
+  font-family: var(--font-family-heading);
+  font-weight: 300;
+  font-size: clamp(1.8rem, 5vw, 3.5rem);
+  line-height: 1.2;
+  margin: 0 0 1.5rem;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+h2 strong {
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+h2 em {
+  font-style: italic;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.text p {
+  font-family: var(--font-family-default);
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
+  line-height: 1.6;
+  font-weight: 300;
+  margin: 0;
+}
+
+.text p strong {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Section and animation setup */
+.section {
+  scroll-snap-align: start;
+  height: 100svh; /* Cambiado de 100vh a 100svh para mejor compatibilidad */
+  overflow: hidden;
+  position: relative;
+}
+
+.content {
+  position: absolute; /* Cambiado de fixed a absolute */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: var(--color-background);
+}
+
+/* Condicional para navegadores con soporte de view-timeline */
+@supports (view-timeline: --section) {
   .section {
-    scroll-snap-align: start;
     view-timeline: --section;
-    height: 100vh;
-    overflow: hidden;
-    position: relative;
   }
   
   .content {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    background-color: var(--color-background);
     animation: zoom-scroll ease-out both;
     animation-timeline: --section;
     animation-range: entry-crossing 0% exit-crossing 100%;
     opacity: 0;
     visibility: hidden;
   }
-  
-  /* Beautiful animation with subtle blur and zoom */
-  @keyframes zoom-scroll {
-    0% {
-      opacity: 0;
-      visibility: hidden;
-      transform: scale(0.8) translateY(30px);
-      filter: blur(8px);
-    }
-    15% {
-      opacity: 1;
-      visibility: visible;
-      transform: scale(1) translateY(0);
-      filter: blur(0);
-    }
-    85% {
-      opacity: 1;
-      visibility: visible;
-      transform: scale(1) translateY(0);
-      filter: blur(0);
-    }
-    100% {
-      opacity: 0;
-      visibility: hidden;
-      transform: scale(1.2) translateY(-30px);
-      filter: blur(8px);
-    }
+}
+
+/* Fallback para navegadores sin soporte para view-timeline */
+@supports not (view-timeline: --section) {
+  .content {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease-out;
   }
   
-  /* Section colors */
-  .section:nth-child(1) .content strong { color: var(--color-primary); }
-  .section:nth-child(2) .content strong { color: var(--color-yellow); }
-  .section:nth-child(3) .content strong { color: var(--color-secondary); }
-  .section:nth-child(4) .content strong { color: var(--color-red); }
-  .section:nth-child(5) .content strong { color: var(--color-purple); }
-  .section:nth-child(6) .content strong { color: var(--color-primary); }
+  /* Solo mostrar el contenido de la sección actual */
+  .section:not(.current) .content {
+    opacity: 0;
+    visibility: hidden;
+  }
   
-  /* Image styling */
-  .background-image {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0.2;
+  /* La primera sección se muestra por defecto */
+  .section:first-child {
+    z-index: 1;
+  }
+  
+  .section:first-child .content {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Beautiful animation with subtle blur and zoom */
+@keyframes zoom-scroll {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8) translateY(30px);
+    filter: blur(8px);
+  }
+  15% {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+  85% {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.2) translateY(-30px);
+    filter: blur(8px);
+  }
+}
+
+/* Section colors */
+.section:nth-child(1) .content strong { color: var(--color-primary); }
+.section:nth-child(2) .content strong { color: var(--color-yellow); }
+.section:nth-child(3) .content strong { color: var(--color-secondary); }
+.section:nth-child(4) .content strong { color: var(--color-red); }
+.section:nth-child(5) .content strong { color: var(--color-purple); }
+.section:nth-child(6) .content strong { color: var(--color-primary); }
+
+/* Image styling */
+.background-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.2;
+}
+
+.background-image img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  filter: drop-shadow(0 0 20px rgba(255,255,255,0.5));
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* Content layout */
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  max-width: 1200px;
+  gap: 2rem;
+  z-index: 1;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.title-section, .text-section {
+  width: 100%;
+  max-width: 800px;
+}
+
+/* Heartbeat animation */
+.heart-emoji {
+  display: inline-block;
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+/* Love message styling */
+.love-message {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.love-message p {
+  font-size: clamp(1rem, 3vw, 1.2rem);
+}
+
+/* Link styling */
+a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--color-yellow);
+  text-decoration: none;
+}
+
+/* Define flower colors for each section */
+#flower-white { fill: var(--color-primary); }
+#flower-yellow { fill: var(--color-yellow); }
+#flower-blue { fill: var(--color-secondary); }
+#flower-red { fill: var(--color-red); }
+#flower-purple { fill: var(--color-purple); }
+#flower-special { fill: var(--color-primary); }
+
+/* Desktop layout */
+@media (min-width: 769px) {
+  .content-wrapper {
+    flex-direction: row;
+    text-align: left;
+    align-items: flex-start;
+  }
+  
+  .title-section {
+    flex: 1;
+    text-align: right;
+    padding-right: 2rem;
+  }
+  
+  .text-section {
+    flex: 1.5;
+    text-align: left;
+  }
+  
+  .love-message {
+    text-align: right;
+  }
+}
+
+/* Small screens additional adjustments */
+@media (max-width: 480px) {
+  .section {
+    height: 100svh; /* Asegura el uso de small viewport height para mejor experiencia móvil */
+  }
+  
+  .content {
+    padding: 1.5rem;
+  }
+  
+  h2 {
+    font-size: clamp(1.5rem, 8vw, 2.5rem);
+    margin-bottom: 1rem;
+  }
+  
+  .text p {
+    font-size: 1rem;
   }
   
   .background-image img {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    filter: drop-shadow(0 0 20px rgba(255,255,255,0.5));
-    animation: float 5s ease-in-out infinite;
+    max-width: 200px;
   }
-  
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-  }
-  
-  /* Content layout */
-  .content-wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 90%;
-    max-width: 1200px;
-    gap: 2rem;
-    z-index: 1;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-  
-  .title-section, .text-section {
-    width: 100%;
-    max-width: 800px;
-  }
-  
-  /* Heartbeat animation */
-  .heart-emoji {
-    display: inline-block;
-    animation: heartbeat 1.5s ease-in-out infinite;
-  }
-  
-  @keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.15); }
-  }
-  
-  /* Love message styling */
-  .love-message {
-    margin-top: 2rem;
-    text-align: center;
-  }
-  
-  .love-message p {
-    font-size: clamp(1rem, 3vw, 1.2rem);
-  }
-  
-  /* Link styling */
-  a {
-    color: var(--color-primary);
-    text-decoration: underline;
-    transition: color 0.3s ease;
-  }
-  
-  a:hover {
-    color: var(--color-yellow);
-    text-decoration: none;
-  }
-  
-  /* Define flower colors for each section */
-  #flower-white { fill: var(--color-primary); }
-  #flower-yellow { fill: var(--color-yellow); }
-  #flower-blue { fill: var(--color-secondary); }
-  #flower-red { fill: var(--color-red); }
-  #flower-purple { fill: var(--color-purple); }
-  #flower-special { fill: var(--color-primary); }
-  
-  /* Desktop layout */
-  @media (min-width: 769px) {
-    .content-wrapper {
-      flex-direction: row;
-      text-align: left;
-      align-items: flex-start;
-    }
-    
-    .title-section {
-      flex: 1;
-      text-align: right;
-      padding-right: 2rem;
-    }
-    
-    .text-section {
-      flex: 1.5;
-      text-align: left;
-    }
-    
-    .love-message {
-      text-align: right;
-    }
-  }
-  
-  /* Small screens additional adjustments */
-  @media (max-width: 480px) {
-    .section {
-      height: 100svh; /* Use small viewport height for better mobile experience */
-    }
-    
-    .content {
-      padding: 1.5rem;
-    }
-    
-    h2 {
-      font-size: clamp(1.5rem, 8vw, 2.5rem);
-      margin-bottom: 1rem;
-    }
-    
-    .text p {
-      font-size: 1rem;
-    }
-    
-    .background-image svg {
-      max-width: 200px;
-    }
-  }
+}
 
-  /* Desactivar animaciones y scroll-snap en móviles */
-  @media (max-width: 768px) {
-    html {
-      scroll-snap-type: none;
-    }
+/* Estilos específicos para dispositivos iOS */
+.ios-device .section {
+  height: 100%; /* Simplifica para iOS */
+}
 
-    .section {
-      height: auto;
-      min-height: 100vh;
-      overflow: visible;
-      position: relative;
-    }
+.ios-device .content {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
 
-    .content {
-      position: relative;
-      height: auto;
-      opacity: 1;
-      visibility: visible;
-      animation: none;
-      transform: none;
-      filter: none;
-      padding: 1.5rem;
-    }
+.ios-device .section.active .content {
+  opacity: 1;
+  visibility: visible;
+}
 
-    .background-image {
-      position: relative;
-      opacity: 0.2;
-      width: 100%;
-      text-align: center;
-    }
+/* Navegación manual para móviles */
+.nav-dots {
+  display: none;
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+}
 
-    .background-image img {
-      max-width: 200px;
-    }
+.ios-device .nav-dots {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
-    .content-wrapper {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-  }
-</style>
+.nav-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+}
+
+.nav-dot.active {
+  background-color: var(--color-primary);
+}
+
+  </style>
 </head>
 <body>
   <main>
@@ -352,7 +395,7 @@
         </div>
       </div>
     </section>
-    
+
     <section id="layout" class="section">
       <div class="content">
         <div class="background-image">
@@ -370,7 +413,7 @@
         </div>
       </div>
     </section>
-    
+
     <section id="transition" class="section">
       <div class="content">
         <div class="background-image">
@@ -388,7 +431,7 @@
         </div>
       </div>
     </section>
-    
+
     <section id="caveats" class="section">
       <div class="content">
         <div class="background-image">
@@ -406,13 +449,15 @@
         </div>
       </div>
     </section>
+    
     <section id="dan-section" class="section">
-        <div class="content">
-            <div class="love-message">
-                <p><strong>Con todo mi amor, Dan Santivañez</strong></p>
-            </div>
+      <div class="content">
+        <div class="love-message">
+            <p><strong>Con todo mi amor, Dan Santivañez</strong></p>
         </div>
+      </div>
     </section>
+
     <section id="special-gift" class="section">
       <div class="content">
         <div class="content-wrapper">
@@ -421,12 +466,177 @@
           </div>
           <div class="text-section">
             <div class="text">
-              <p>¿Pensaste que solo eso era la sorpresa? Te tengo algo más, ahora es un primer ladrillo, pero estoy seguro que será una pequeña fuente de tu independencia: <a href="https://karem-app.vercel.app/">https://karem-app.vercel.app/</a> 🎁</p>
+              <p>¿Pensaste que solo eso era la sorpresa? Te tengo algo más, ahora es un primer ladrillo pero estoy seguro que será una pequeña fuente de tu independencia: <a href="https://karem-app.vercel.app/">https://karem-app.vercel.app/</a> 🎁</p>
             </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Navegación de puntos para dispositivos iOS -->
+    <div class="nav-dots">
+      <div class="nav-dot active" data-index="0"></div>
+      <div class="nav-dot" data-index="1"></div>
+      <div class="nav-dot" data-index="2"></div>
+      <div class="nav-dot" data-index="3"></div>
+      <div class="nav-dot" data-index="4"></div>
+      <div class="nav-dot" data-index="5"></div>
+      <div class="nav-dot" data-index="6"></div>
+    </div>
   </main>
+
+  <script>
+    // Detecta iOS
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    
+    if (isIOS) {
+      document.body.classList.add('ios-device');
+      
+      // Implementa navegación manual para iOS
+      const sections = document.querySelectorAll('.section');
+      const dots = document.querySelectorAll('.nav-dot');
+      let currentSection = 0;
+      let isScrolling = false;
+      let touchStartY = 0;
+      let touchEndY = 0;
+      const minSwipeDistance = 50;
+      
+      // Función para mostrar la sección actual
+      function showSection(index) {
+        // Limita el índice al rango válido
+        if (index < 0) index = 0;
+        if (index >= sections.length) index = sections.length - 1;
+        
+        // Actualiza la sección actual
+        currentSection = index;
+        
+        // Actualiza clases active
+        sections.forEach((section, i) => {
+          if (i === index) {
+            section.classList.add('active');
+          } else {
+            section.classList.remove('active');
+          }
+        });
+        
+        // Actualiza los puntos de navegación
+        dots.forEach((dot, i) => {
+          if (i === index) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }
+      
+      // Inicializa la primera sección como activa
+      sections[0].classList.add('active');
+      
+      // Eventos de deslizar para navegación
+      document.addEventListener('touchstart', function(e) {
+        touchStartY = e.touches[0].clientY;
+      }, false);
+      
+      document.addEventListener('touchmove', function(e) {
+        // Prevenir scroll normal
+        e.preventDefault();
+      }, { passive: false });
+      
+      document.addEventListener('touchend', function(e) {
+        touchEndY = e.changedTouches[0].clientY;
+        
+        // Calcula dirección del deslizamiento
+        const yDiff = touchStartY - touchEndY;
+        
+        if (Math.abs(yDiff) > minSwipeDistance) {
+          if (yDiff > 0) {
+            // Desliza hacia arriba, muestra siguiente sección
+            if (currentSection < sections.length - 1 && !isScrolling) {
+              isScrolling = true;
+              showSection(currentSection + 1);
+              setTimeout(() => { isScrolling = false; }, 600); // Previene cambios rápidos
+            }
+          } else {
+            // Desliza hacia abajo, muestra sección anterior
+            if (currentSection > 0 && !isScrolling) {
+              isScrolling = true;
+              showSection(currentSection - 1);
+              setTimeout(() => { isScrolling = false; }, 600); // Previene cambios rápidos
+            }
+          }
+        }
+      }, false);
+      
+      // Agregar evento de clic a los puntos de navegación
+      dots.forEach((dot) => {
+        dot.addEventListener('click', function() {
+          const index = parseInt(this.getAttribute('data-index'));
+          showSection(index);
+        });
+      });
+      
+      // También manejar gestos de teclado para accesibilidad
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+          if (currentSection < sections.length - 1) {
+            showSection(currentSection + 1);
+          }
+        } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+          if (currentSection > 0) {
+            showSection(currentSection - 1);
+          }
+        }
+      });
+    } else {
+      // Para navegadores no iOS, podemos usar IntersectionObserver para resaltar los puntos de navegación
+      const sections = document.querySelectorAll('.section');
+      const dots = document.querySelectorAll('.nav-dot');
+      
+      // Configuración del Intersection Observer
+      const observerOptions = {
+        root: null, // viewport
+        rootMargin: '0px',
+        threshold: 0.7 // cuando 70% de la sección está visible
+      };
+      
+      // Callback que se ejecuta cuando una sección entra o sale del viewport
+      const observerCallback = (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Encuentra el índice de la sección visible
+            const index = Array.from(sections).indexOf(entry.target);
+            
+            // Actualiza el punto de navegación activo
+            dots.forEach((dot, i) => {
+              if (i === index) {
+                dot.classList.add('active');
+              } else {
+                dot.classList.remove('active');
+              }
+            });
+          }
+        });
+      };
+      
+      // Crear el observer
+      const observer = new IntersectionObserver(observerCallback, observerOptions);
+      
+      // Observar todas las secciones
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+      
+      // Agregar evento de clic a los puntos de navegación para navegadores normales
+      dots.forEach((dot) => {
+        dot.addEventListener('click', function() {
+          const index = parseInt(this.getAttribute('data-index'));
+          sections[index].scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+    }
+    
+    // Asegura que el emoji de corazón se muestre
+    document.querySelector('.heart-emoji').innerHTML = '❤️';
+  </script>
 </body>
 </html>
